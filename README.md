@@ -1,1 +1,1 @@
-<h2>This is for the design and analysis of algorithms lab in my 4th semester</h2>
+<h2>Assignments for The Design and Analysis of Algorithms lab in my 4th semester</h2>
