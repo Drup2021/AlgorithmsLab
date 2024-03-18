@@ -1,18 +1,20 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <cmath>
+using namespace std;
 
 struct Point {
     double x, y;
     Point(double x = 0, double y = 0) : x(x), y(y) {}
 };
 
-std::vector<Point> generateCirclePoints(int n, double radius) {
+std::vector<Point> generatePolygonPoints(int n, double radius) {
     std::vector<Point> points;
     
     double angleIncrement = 2 * M_PI / n;
     
-    // Generate points on the circle with increasing order of angles
+    // Generate points different points of a convex polygon
     for (int i = 0; i < n; ++i) {
         double angle = i * angleIncrement;
         double x = radius * cos(angle);
@@ -24,16 +26,18 @@ std::vector<Point> generateCirclePoints(int n, double radius) {
 }
 
 int main() {
-    int n;
+
     double radius = 10.0;
-    std::cout << "Enter the number of points for the circle: ";
-    std::cin >> n;
+    ofstream foutput("polygon_points.txt");
 
-    std::vector<Point> circle_points = generateCirclePoints(n, radius);
+    
 
-    std::cout << "Circle Points:\n";
-    for (int i = 0; i < n; ++i) {
-        std::cout << circle_points[i].x << ", " << circle_points[i].y << "\n";
+    for(int i = 3;i<=20;i++){
+    std::vector<Point> circle_points = generatePolygonPoints(i, radius);
+    for (int j = 0; j < i; ++j) {
+        foutput << "(" << circle_points[j].x << ", " << circle_points[j].y << "),";
+    }
+    foutput<<"\n";
     }
 
     return 0;

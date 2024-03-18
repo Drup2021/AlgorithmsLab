@@ -1,6 +1,7 @@
 // A Dynamic Programming based program to find minimum cost of convex
 // polygon triangulation
 #include <iostream>
+#include <fstream>
 #include <cmath>
 #define MAX 1000000.0
 using namespace std;
@@ -37,37 +38,27 @@ double cost(vector<Point> &points, int i, int j, int k)
 // polygon triangulation.
 double mTCDP(vector<Point> &points, int n)
 {
-// There must be at least 3 points to form a triangle
-if (n < 3)
-	return 0;
-
-// table to store results of subproblems. table[i][j] stores cost of
-// triangulation of points from i to j. The entry table[0][n-1] stores
-// the final result.
-double table[n][n];
-
-// Fill table using above recursive formula. Note that the table
-// is filled in diagonal fashion i.e., from diagonal elements to
-// table[0][n-1] which is the result.
-for (int gap = 0; gap < n; gap++)
-{
-	for (int i = 0, j = gap; j < n; i++, j++)
-	{
-		if (j < i+2)
-			table[i][j] = 0.0;
-		else
-		{
-			table[i][j] = MAX;
-			for (int k = i+1; k < j; k++)
-			{
-				double val = table[i][k] + table[k][j] + cost(points,i,j,k);
-				if (table[i][j] > val)
-					table[i][j] = val;
-			}
-		}
-	}
-}
-return table[0][n-1];
+    if (n < 3) return 0;
+    double table[n][n];
+    for (int gap = 0; gap < n; gap++)
+    {
+        for (int i = 0, j = gap; j < n; i++, j++)
+        {
+            if (j < i+2)
+                table[i][j] = 0.0;
+            else
+            {
+                table[i][j] = MAX;
+                for (int k = i+1; k < j; k++)
+                {
+                    double val = table[i][k] + table[k][j] + cost(points,i,j,k);
+                    if (table[i][j] > val)
+                        table[i][j] = val;
+                }
+            }
+        }
+    }
+    return table[0][n-1];
 }
 
 std::vector<Point> generateCirclePoints(int n, double radius) {
@@ -90,11 +81,32 @@ std::vector<Point> generateCirclePoints(int n, double radius) {
 // Driver program to test above functions
 int main()
 {
-    int n;
+    int n=3;
     double radius = 10.0;
-    std::cout << "Enter the number of points for the circle: ";
-    std::cin >> n;
-	std::vector<Point> points = generateCirclePoints(n, radius);
-	cout << mTCDP(points, n);
+		
+	cout<<"hi";
+    ofstream foutput("dp_time-taken.txt");
+    
+
+    float s = 0;
+    while(n <= 10){
+        s = 0;
+        for(int i = 0; i < 5;i++){
+            std::vector<Point> points = generateCirclePoints(n, radius);
+            float start_time = clock();
+            cout<<"n : "<<n<<endl;
+            cout << mTCDP(points,n) << endl;
+            float end_time = clock();
+            float time_taken = (end_time - start_time) * 1000 / CLOCKS_PER_SEC;
+            s += time_taken;
+        }
+        cout<<"\n\n";
+        float average_time = s/5;
+        cout<<"Average time : "<<average_time<<"ms\n";
+        foutput<<average_time<<",\n";
+        n++;
+    }
+
+	// cout << mTCDP(points, n);
 	return 0;
 }

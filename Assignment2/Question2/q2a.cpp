@@ -7,28 +7,23 @@
 #include<vector>
 using namespace std;
 
-// declare structure node
+
 struct node {
 
-	// for storing symbol
-	string sym;
-
-	// for storing probability or frequency
-	float pro;
-	int arr[20];
-	int top;
+	string sym; // stores the character/sympbol
+	float pro;  // stores the probaility or frequency
+	int arr[20]; // stores the shannon-fano code for the symbol
+	int top; // stores the index of the top of the array
 } p[20];
 
 typedef struct node node;
 
-// function to find shannon code
 void shannon(int l, int h, node p[])
 {
 	float pack1 = 0, pack2 = 0, diff1 = 0, diff2 = 0;
 	int i, d, k, j;
 	if ((l + 1) == h || l == h || l > h) {
-		if (l == h || l > h)
-			return;
+		if (l == h || l > h) return;
 		p[h].arr[++(p[h].top)] = 0;
 		p[l].arr[++(p[l].top)] = 1;
 		return;
@@ -38,8 +33,7 @@ void shannon(int l, int h, node p[])
 			pack1 = pack1 + p[i].pro;
 		pack2 = pack2 + p[h].pro;
 		diff1 = pack1 - pack2;
-		if (diff1 < 0)
-			diff1 = diff1 * -1;
+		if (diff1 < 0) diff1 = diff1 * -1;
 		j = 2;
 		while (j != h - l + 1) {
 			k = h - j;
@@ -49,10 +43,8 @@ void shannon(int l, int h, node p[])
 			for (i = h; i > k; i--)
 				pack2 = pack2 + p[i].pro;
 			diff2 = pack1 - pack2;
-			if (diff2 < 0)
-				diff2 = diff2 * -1;
-			if (diff2 >= diff1)
-				break;
+			if (diff2 < 0) diff2 = diff2 * -1;
+			if (diff2 >= diff1) break;
 			diff1 = diff2;
 			j++;
 		}
@@ -62,7 +54,6 @@ void shannon(int l, int h, node p[])
 		for (i = k + 1; i <= h; i++)
 			p[i].arr[++(p[i].top)] = 0;
 
-		// Invoke shannon function
 		shannon(l, k, p);
 		shannon(k + 1, h, p);
 	}
@@ -70,6 +61,7 @@ void shannon(int l, int h, node p[])
 
 // Function to sort the symbols
 // based on their probability or frequency
+
 void sortByProbability(int n, node p[])
 {
 	int i, j;
@@ -157,5 +149,6 @@ int main()
 
 	// Display the codes
 	display(n, p);
+	cout<<endl;
 	return 0;
 }

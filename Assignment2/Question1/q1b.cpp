@@ -1,7 +1,9 @@
 // Recursive implementation for minimum cost convex polygon triangulation
 #include <iostream>
+#include <fstream>
 #include<vector>
 #include <cmath>
+#include<time.h>
 #define MAX 1000000.0
 using namespace std;
 
@@ -27,25 +29,19 @@ double dist(Point p1, Point p2)
 
 // A utility function to find cost of a triangle. The cost is considered
 // as perimeter (sum of lengths of all edges) of the triangle
+
 double cost(vector<Point> &points, int i, int j, int k)
 {
 	Point p1 = points[i], p2 = points[j], p3 = points[k];
 	return dist(p1, p2) + dist(p2, p3) + dist(p3, p1);
 }
 
-// A recursive function to find minimum cost of polygon triangulation
-// The polygon is represented by points[i..j].
 double mTC(vector<Point> &points, int i, int j)
 {
-// There must be at least three points between i and j
-// (including i and j)
 if (j < i+2)
 	return 0;
 
-// Initialize result as infinite
 double res = MAX;
-
-// Find minimum triangulation by considering all
 for (int k=i+1; k<j; k++)
 		res = min(res, (mTC(points, i, k) + mTC(points, k, j) +
 						cost(points, i, k, j)));
@@ -71,12 +67,32 @@ std::vector<Point> generateCirclePoints(int n, double radius) {
 // Driver program to test above functions
 int main()
 {
-    int n;
+    int n = 3;
     double radius = 10.0;
-    std::cout << "Enter the number of points for the circle: ";
-    std::cin >> n;
 
-    std::vector<Point> points = generateCirclePoints(n, radius);
-	cout << mTC(points, 0, n-1);
+    // std::cout << "Enter the number of points for the circle: ";
+    // std::cin >> n;
+    cout<<"hi";
+    ofstream foutput("brute-force_time-taken.txt");
+    
+
+    float s = 0;
+    while(n <= 10){
+        s = 0;
+        for(int i = 0; i < 5;i++){
+            std::vector<Point> points = generateCirclePoints(n, radius);
+            float start_time = clock();
+            cout<<"n : "<<n<<endl;
+            cout << mTC(points, 0, n-1) << endl;
+            float end_time = clock();
+            float time_taken = (end_time - start_time) * 1000 / CLOCKS_PER_SEC;
+            s += time_taken;
+        }
+        cout<<"\n\n";
+        float average_time = s/5;
+        cout<<"Average time : "<<average_time<<"ms\n";
+        foutput<<average_time<<",\n";
+        n++;
+    }
 	return 0;
 }
