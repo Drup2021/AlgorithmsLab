@@ -3,6 +3,7 @@
 #include <vector>
 #include <cmath>
 #include <limits>
+#include <time.h>
 #define MAX 1000000.0
 using namespace std;
 struct Point {
@@ -127,12 +128,28 @@ int main() {
     int n = 3;
     ofstream foutput("percentage-error.txt");
 
+    ofstream f2("time_dp.txt");
+    ofstream f1("time_greedy.txt");
+
     while(n <= 100){
         std::vector<Point> polygon = generateCirclePoints(n, radius);
         float start_time = clock();
         cout<<"n : "<<n<<endl;
+
+
+        float start1 = clock();
         double greedyCost = greedyMinimumCost(polygon);
+        float end1 = clock();
+
+        float start2 = clock();
         double dpCost = mTCDP(polygon,polygon.size());
+        float end2 = clock();
+
+        float time_taken2 = (end2 - start2) * 1000 / CLOCKS_PER_SEC;
+        float time_taken1 = (end1 - start1) * 1000 / CLOCKS_PER_SEC;
+        f1<<time_taken1<<",\n";
+        f2<<time_taken2<<",\n";
+
 
         double percentageError = ((dpCost - greedyCost) / dpCost) * 100.0;
         foutput<<percentageError<<",\n";
@@ -143,6 +160,8 @@ int main() {
         n++;
     }
 
-
+    f1.close();
+    f2.close();
+    foutput.close();
     return 0;
 }
