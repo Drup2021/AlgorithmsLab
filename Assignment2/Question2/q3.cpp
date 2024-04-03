@@ -177,11 +177,22 @@ int main()
 	cout<<"Entropy is : "<<entropy<<endl;
 	int numerator = 0;
 	int denominator = 0;
+	string newstr = "the sun dipped below the horizon, casting a golden glow over the tranquil meadow. a gentle breeze rustled through the tall grass, carrying with it the sweet scent of wildflowers. nestled among the swaying blades, a small rabbit named oliver watched as the world around him began to slumber. oliver had always been a dreamer, his mind filled with visions of faraway lands and grand adventures. while other rabbits spent their days foraging for food and tending to their burrows, oliver would often wander to the edge of the meadow, gazing longingly at the distant mountains that beckoned to him like silent sentinels.tonight, as the stars began to twinkle overhead, oliver felt an irresistible urge to explore. with a determined hop, he set off into the unknown, his heart brimming with excitement and anticipation.the night was alive with the sounds of nocturnal creatures, their calls echoing through the darkness. oliver paid them no mind, his eyes fixed on the towering peaks that loomed ever closer with each step. he had heard tales of a hidden valley beyond the mountains, a place where magic danced on the wind and dreams took flight.as dawn broke on the horizon, oliver crested the final ridge and beheld the valley spread out before him in all its splendor. it was a place of breathtaking beauty, where crystal-clear streams meandered through lush meadows and ancient forests whispered secrets to the wind.overwhelmed by the sheer magnificence of it all, oliver felt tears prickling at the corners of his eyes. this was the adventure he had always dreamed of, a journey into the heart of the unknown where anything was possible.for days, oliver wandered the valley, drinking in its wonders and forging friendships with its inhabitants. he danced with fireflies beneath the moonlit sky, sang songs with the birds in the treetops, and raced with the deer through fields of wildflowers.but as the days turned into weeks, oliver began to feel a tug at his heartstrings, a longing for the familiar comforts of home. despite the beauty that surrounded him, he missed his family and the simple joys of life in the meadow.with a heavy heart, oliver bid farewell to his newfound friends and set off on the long journey back to the meadow. as he retraced his steps through the mountains, he carried with him memories that would last a lifetime and a renewed appreciation for the beauty of the world around him.when at last he reached the edge of the meadow, oliver was greeted with open arms by his family and friends. though he had returned home, he knew that a part of him would forever remain in the enchanted valley, a testament to the power of dreams and the magic that lies within us all.";
+	
+	// map<char,int> freq_new;
+	// for(auto it : newstr){
+	// 	freq_new[it]++;
+	// }
+	// for(auto it : codes){
+	// 	numerator += it.second.length() * freq_new[it.first];
+	// 	denominator += freq_new[it.first];
+	// }
+
 	for(auto it : codes){
 		numerator += it.second.length() * freq[it.first];
 		denominator += freq[it.first];
 	}
-	
+
 	
 	// decodedString = decode_file(minHeap.top(), encodedString);
 	string decodedStr = decode_instantaneous(encodedString);
