@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/drupacharya/Documents/Algorithms_Lab/Assignment2/Question2",
-      "program": "/Users/drupacharya/Documents/Algorithms_Lab/Assignment2/Question2/build/Debug/outDebug"
+      "cwd": "/Users/drupacharya/Documents/Algorithms_Lab/Assignment3",
+      "program": "/Users/drupacharya/Documents/Algorithms_Lab/Assignment3/build/Debug/outDebug"
     }
   ]
 }
