@@ -16,7 +16,7 @@ struct Subset {
 };
 
 int find(Subset subsets[], int i) {
-    // finds the ultimate parent
+    // finds the ultimate parent    
     if (subsets[i].parent != i)
         subsets[i].parent = find(subsets, subsets[i].parent);
 

@@ -89,6 +89,7 @@ int main() {
     if (file.is_open()) {
         int src, dest,wt,tmp;
         while (file >> src >> dest >> wt >> tmp) {
+            if(wt < 0) wt *= -1;
             edges.push_back({src, dest,wt});
             max_node = max(max_node, max(src, dest));
         }

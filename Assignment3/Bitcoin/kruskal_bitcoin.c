@@ -47,6 +47,7 @@ int main(){
     //     addEdge(g,src-1,dest-1,wt);
     // }
     while(fscanf(fp,"%d %d %d %d\n",&src,&dest,&wt,&tmp)==4){
+        if(wt < 0) wt *= -1;
         addEdge(g,src-1,dest-1,wt);
     }
     
